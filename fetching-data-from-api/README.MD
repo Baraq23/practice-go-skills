@@ -1,0 +1,1 @@
+ARTIST API LINK : https://groupietrackers.herokuapp.com/api/artists
