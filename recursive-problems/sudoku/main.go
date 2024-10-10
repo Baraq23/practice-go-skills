@@ -7,29 +7,25 @@ import (
 )
 
 func main() {
-	if len(os.Args) != 10 {
+	
+
+	if len(os.Args) != 2 {
 		fmt.Println("missing row(s)")
 		return
 	}
-	sdkRows := os.Args[1:]
-	for i :=range sdkRows {
-		if len(sdkRows[i]) != 9 {
-			fmt.Println("Incorrect number of columns at row number:", i+1)
-			return 
-		}
+
+	inputR := os.Args[1]
+	if len(inputR) != 9 {
+		fmt.Println("Incorrect number of value provided in the row")
+		fmt.Println("Values length must equal 9")
+		return
 	}
 
-	var unsolved [][]string
-	for _, s := range sdkRows {
-		unsolved = append(unsolved, strings.Split(s, ""))
-	}
+	unsolved := strings.Split(inputR, "")
 
-	printSdk(unsolved)
+	fmt.Println(unsolved)
+	
 
 }
 
-func printSdk(sdk [][] string) {
-	for _, v := range sdk {
-		fmt.Println(v)
-	}
-}
+
