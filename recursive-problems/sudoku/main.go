@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	// "time"
 )
 
 func main() {
@@ -22,10 +23,49 @@ func main() {
 	}
 
 	unsolved := strings.Split(inputR, "")
+	if solve(unsolved, 0) {
+		fmt.Println("row solved")
+	} else {
+		fmt.Println("No solution found")
+	}
 
-	fmt.Println(unsolved)
-	
+	// fmt.Println(unsolved)	
 
+}
+
+func solve(sdk []string, indx int) bool {
+	// fmt.Println("IndeR:", indx)
+	if indx == 9 {
+		return true
+	}
+	if sdk[indx] == "." {
+		for i := '1'; i <= '9'; i++ {
+			sdk[indx] = string(i)
+			// fmt.Println("Index:", indx)
+			fmt.Println(sdk)
+			// time.Sleep(2*time.Second)
+			if isValid(sdk, indx, string(i)) {
+				if solve(sdk, indx+1) {
+					return true
+				}
+			}
+			sdk[indx] = "."
+		}
+	} else {
+		if solve(sdk, indx+1) {
+			return true
+		}
+	}
+	return false
+}
+
+func isValid(sdk []string, indx int, tv string) bool {
+	for i := range sdk {
+		if sdk[i] == tv && indx != i {
+			return false
+		}
+	}
+	return true
 }
 
 
