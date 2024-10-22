@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .body-div {
+            max-width: 100vw;
+            margin: 5px auto;
+            border: 1.5px black solid;
+        }
+
+        .card-div {
+            display: inline-flex;
+            flex-wrap: wrap;
+            min-width: 330px;
+            min-height: 570px;
+            margin: 3px auto;
+            border: 1.5px blue solid;
+        }
+
+        .card-content-div {
+            padding: 3px;
+            margin: 5px auto;
+            border: 1.5px rgb(43, 255, 0) solid;
+        }
+
+        .img-div {
+            /* width: 100%; */
+            margin: auto;
+            border: 2px rgb(213, 36, 80) solid;
+        }
+
+        .thumbnail {
+            margin: 1px auto;
+            /* padding: auto; */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="body-div">
+        <h1>Locations</h1>
+        {{ range .Index }}
+        <div class="card-div">
+            <div class="card-content-div">
+                <p>Id No. {{ .Id }}</p>     
+
+                <h5>Locations </h5>
+                <ol>
+                    {{ range .Locations }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ol>
+                <p><a href="{{ .Dates}}">Dates</a></p>
+                <hr>
+                <br>
+
+            </div>
+        </div>
+        {{ end }}
+
+    </div>
+
+
+</body>
+
+</html>
