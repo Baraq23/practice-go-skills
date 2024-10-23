@@ -2,6 +2,7 @@ package decoders
 
 import (
 	"encoding/json"
+	"io"
 	"log"
 	"net/http"
 )
@@ -22,16 +23,24 @@ func DecodeLocations() *LocationData {
 
 	url := "https://groupietrackers.herokuapp.com/api/locations"
 
-	data, err := http.Get(url)
+	resp, err := http.Get(url)
 	if err != nil {
-		log.Println("Error fetching locations data.")
+		log.Println("Error fetching locations response.")
+		return nil
+	}
+	defer resp.Body.Close()
+
+	data, err := io.ReadAll(resp.Body)
+	if err != nil {
+		log.Println("Error reading locations response body.")
 		return nil
 	}
 
-	decoder := json.NewDecoder(data.Body)
-
 	var locationInfo LocationData
+	err = json.Unmarshal(data, &locationInfo)
+	if err != nil {
+		log.Println("Error unmarshalling location data")
+	}
 
-	decoder.Decode(&locationInfo)
 	return &locationInfo
 }
