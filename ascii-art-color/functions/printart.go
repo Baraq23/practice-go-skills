@@ -1,5 +1,7 @@
 package asciiart
 
+import "fmt"
+
 // Func GetArt() takes the map of ascii art and and string then returns the art in string form.
 func GetArt(asciiMap map[rune][]string, input string, positions []int, ansi string, lenSub int) string {
 	store := [][]string{}
@@ -7,7 +9,10 @@ func GetArt(asciiMap map[rune][]string, input string, positions []int, ansi stri
 		store = append(store, asciiMap[chr])
 	}
 
-	storeColor := colorArt(store, positions, ansi, lenSub)
+	storeColor := store
+	if ansi != "" {
+		storeColor = colorArt(store, positions, ansi, lenSub)
+	}
 	// fmt.Println("store color",storeColor)
 
 	// Hold the word in a variable.
@@ -29,18 +34,20 @@ func colorArt(store [][]string, positions []int, ansi string, lenSub int) [][]st
 	res := "\x1b[0m"
 	pos := 0
 
+	fmt.Println("positions:", positions)
+	fmt.Println("lenof subS:", lenSub)
 	for i := range store {
 		charColor := []string{}
 		for _, c := range store[i] {
 			if len(positions) != 0 {
-				if i >= positions[pos] && i < positions[pos]+lenSub {
+				if i >= positions[pos] && i <= positions[pos]+lenSub-1 {
 					charColor = append(charColor, ansi+string(c)+res)
 				} else {
 					charColor = append(charColor, string(c))
 				}
 				// Move to the next index of the positions
-				if positions[pos] == i {
-					if pos < len(positions)-1 {
+				if positions[pos]+lenSub == i {
+					if pos < len(positions) -1 {
 						pos++
 					}
 				}

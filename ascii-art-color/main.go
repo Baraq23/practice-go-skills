@@ -19,20 +19,45 @@ type Rgb struct {
 
 func main() {
 	errorMessege := "Usage: go run . [OPTION] [STRING]\n\nEX: go run . --color=<color> <substring to be colored> \"something\""
-	if len(os.Args) < 3 || len(os.Args) > 5 {
+	if len(os.Args) < 2 || len(os.Args) > 5 {
 		fmt.Println(errorMessege)
 		return
 	}
 
-	if os.Args[1][:2] != "--" {
-		fmt.Println(errorMessege)
-		return
-	}
+	// if os.Args[1][:2] != "--" {
+	// 	fmt.Println(errorMessege)
+	// 	return
+	// }
 
 	color := flag.String("color", "", "rgb color code")
+
 	flag.Parse()
 
-	str, subS, tempFlag := getInputs(os.Args)
+	fmt.Println("flags:",flag.NFlag())
+
+	str, subS, tempFlag, ansi := "","","",""
+	var err error
+	if flag.NFlag() == 0 {
+		if len(os.Args) < 2 || len(os.Args) > 3 {
+			fmt.Println(errorMessege)
+			return
+		}
+		if len(os.Args) == 2 {
+			str = os.Args[1]
+		} else {
+			str = os.Args[1]
+			tempFlag = os.Args[2]
+		}
+	} else {
+		str, subS, tempFlag = getInputs(os.Args)
+		ansi, err = getAnsi(*color)
+		if err != nil {
+		fmt.Println(err)
+		fmt.Println(errorMessege)
+		return
+	}
+	}
+
 
 	validateStr := asciiart.StrValidate(str)
 	if !validateStr {
@@ -54,12 +79,7 @@ func main() {
 		positions = getSubStringPositions(str, subS)
 	}
 
-	ansi, err := getAnsi(*color)
-	if err != nil {
-		fmt.Println(err)
-		fmt.Println(errorMessege)
-		return
-	}
+	
 	// str = asciiart.FormatSpChar(str)
 	// subS = asciiart.FormatSpChar(subS)
 
