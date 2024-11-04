@@ -22,18 +22,17 @@ func main() {
 	if len(os.Args) < 2 || len(os.Args) > 5 {
 		fmt.Println(errorMessege)
 		return
-	}
-
-	// if os.Args[1][:2] != "--" {
-	// 	fmt.Println(errorMessege)
-	// 	return
-	// }
+	}	
 
 	color := flag.String("color", "", "rgb color code")
 
 	flag.Parse()
 
-	fmt.Println("flags:",flag.NFlag())
+	if *color == "" {
+		fmt.Println("Color not given.")
+		fmt.Println(errorMessege)
+		return
+	}
 
 	str, subS, tempFlag, ansi := "","","",""
 	var err error
@@ -49,6 +48,10 @@ func main() {
 			tempFlag = os.Args[2]
 		}
 	} else {
+		if os.Args[1][:8] != "--color=" {
+			fmt.Println(errorMessege)
+			return
+		}
 		str, subS, tempFlag = getInputs(os.Args)
 		ansi, err = getAnsi(*color)
 		if err != nil {
@@ -79,14 +82,9 @@ func main() {
 		positions = getSubStringPositions(str, subS)
 	}
 
-	
-	// str = asciiart.FormatSpChar(str)
-	// subS = asciiart.FormatSpChar(subS)
 
 	bannerTemplate := filepath.Join("banners", "standard.txt")
-	// arguments := os.Args[0:]
 
-	// Code checks if the length of the argument is exactly two and the second one is not a flag.
 	if tempFlag != "" {
 
 		if tempFlag != "-sh" && tempFlag != "-th" && tempFlag != "-st" {
@@ -105,18 +103,16 @@ func main() {
 		}
 	}
 
-	// asciiart.ValidateBanner(bannerTemplate)
 	artStr := asciiart.WordDistributer(str, bannerTemplate, positions, ansi, lenSub)
 
 	fmt.Println(artStr)
 }
 
+// Func getSubstringPositions() returns a slice of intergers containing indexes where substring starts
 func getSubStringPositions(s, sb string) []int {
-	// res := "\x1b[0m"
 	positions := []int{}
 	start := 0
 
-	// geting position indexes of substring
 	for start < len(s) {
 		pos := strings.Index(s[start:], sb)
 		if pos == -1 {
@@ -133,7 +129,7 @@ func getAnsi(s string) (string, error) {
 	var rgb Rgb
 	var err error
 
-	// common colors
+	// defined colors
 	ansiMap := make(map[string]string)
 	ansiMap["red"] = "\033[38;2;255;0;0m"
 	ansiMap["green"] = "\033[38;2;0;255;0m"
@@ -157,10 +153,13 @@ func getAnsi(s string) (string, error) {
 	ansiMap["gold"] = "\033[38;2;255;215;0m"
 
 	ansi := ""
-	if s[:3] == "rgb" {
+	if strings.Contains(s, "rgb") {
+		if s[3] != '(' {
+			return "", fmt.Errorf("Invalid RGB color code")
+		}
 		rgb.R, rgb.G, rgb.B, err = getRgbInt(s)
 		if err != nil {
-			return "", fmt.Errorf("Invalid RGB color code")
+			return "", err
 		}
 		ansi = fmt.Sprintf("\033[38;2;%d;%d;%dm", rgb.R, rgb.G, rgb.B)
 	} else if _, ok := ansiMap[s]; ok {
@@ -168,7 +167,6 @@ func getAnsi(s string) (string, error) {
 	} else {
 		return "", fmt.Errorf("Color given is not defined")
 	}
-
 	return ansi, nil
 }
 
@@ -205,6 +203,10 @@ func getRgbInt(s string) (int, int, int, error) {
 	g, _ := strconv.Atoi(intSlice[1])
 	b, _ := strconv.Atoi(intSlice[2])
 
+	if r > 255 || g > 255 || b > 255 {
+		return 0, 0, 0, fmt.Errorf("Error: Color code values should not be more than 255.")
+	}
+
 	return r, g, b, nil
 }
 
@@ -214,14 +216,14 @@ func getInputs(sl []string) (string, string, string) {
 	subS := ""
 	flag := ""
 
-	// go run . --color=[200,34,50] "to" "tommorrow come to my place" "-sh"
+	// go run . --color="rgb(200,34,50)" "to" "some string goes here" "-sh"
 	if len(sl) == 5 {
 		str = sl[3]
 		subS = sl[2]
 		flag = sl[4]
 	}
 
-	// go run . --color=[200,34,50] "to" "tommorrow come to my place"
+	// go run . --color="rgb(200,34,50)" "to" "some string goes here"
 	if len(sl) == 4 {
 		if sl[3][0] == '-' {
 			flag = sl[3]
@@ -232,7 +234,7 @@ func getInputs(sl []string) (string, string, string) {
 		}
 	}
 
-	// go run . --color=[200,34,50] "tommorrow come to my place"
+	// go run . --color="rgb(200,34,50)" "some string goes here"
 	if len(sl) == 3 {
 		str = sl[2]
 	}
