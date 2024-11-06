@@ -29,9 +29,9 @@ func ValidateBanner(f string) bool {
 	return fHash == hashMap[f]
 }
 
-func checkErr(err error) {
-	if err != nil {
-		fmt.Println("Error: ", err)
-		os.Exit(0)
-	}
-}
+// func checkErr(err error) {
+// 	if err != nil {
+// 		fmt.Println("Error: ", err)
+// 		os.Exit(0)
+// 	}
+// }

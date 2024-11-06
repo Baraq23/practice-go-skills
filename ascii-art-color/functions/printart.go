@@ -1,9 +1,8 @@
 package asciiart
 
-import "fmt"
 
 // Func GetArt() takes the map of ascii art and and string then returns the art in string form.
-func GetArt(asciiMap map[rune][]string, input string, positions []int, ansi string, lenSub int) string {
+func GetArt(asciiMap map[rune][]string, input string, positions []int, ansi string, ansi2 string, lenSub int) string {
 	store := [][]string{}
 	for _, chr := range input {
 		store = append(store, asciiMap[chr])
@@ -11,9 +10,8 @@ func GetArt(asciiMap map[rune][]string, input string, positions []int, ansi stri
 
 	storeColor := store
 	if ansi != "" {
-		storeColor = colorArt(store, positions, ansi, lenSub)
+		storeColor = colorArt(store, positions, ansi, ansi2, lenSub)
 	}
-	// fmt.Println("store color",storeColor)
 
 	// Hold the word in a variable.
 	artSentence := ""
@@ -29,20 +27,21 @@ func GetArt(asciiMap map[rune][]string, input string, positions []int, ansi stri
 }
 
 // func colorArt() assigns colors to the art at the desired indexes given by the positions
-func colorArt(store [][]string, positions []int, ansi string, lenSub int) [][]string {
+func colorArt(store [][]string, positions []int, ansi string, ansi2 string, lenSub int) [][]string {
 	storeColored := [][]string{}
 	
 	pos := 0
-
-	fmt.Println("positions:", positions)
-	fmt.Println("lenof subS:", lenSub)
 	for i := range store {
-		charColor := []string{}
+		var charColor []string
 		if len(positions) != 0 {
 			if i >= positions[pos] && i < positions[pos]+lenSub {				
 				charColor = colorWholeChar(ansi, store[i])
 			} else {
-				charColor = store[i]
+				if ansi2 != "" {
+					charColor = colorWholeChar(ansi2, store[i])
+				} else {
+					charColor = store[i]
+				}
 			}
 			// Move to the next index of the positions
 			if positions[pos]+lenSub-1 == i {
