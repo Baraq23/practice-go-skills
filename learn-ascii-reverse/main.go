@@ -8,7 +8,14 @@ import (
 )
 
 func main() {
-	fileCont, err := os.Open("text12.txt")
+	printSl("text.txt")
+	printSl("text12.txt")
+	printSl("text123C.txt")
+}
+
+// printSl() prints slices of indexes from which each graphic end
+func printSl(file string) {
+	fileCont, err := os.Open(file)
 	if err != nil {
 		fmt.Println("unable to open file")
 		return
@@ -52,7 +59,7 @@ func main() {
 			}
 		}
 	}
-	fmt.Println(positions)
-	fmt.Println(positionSp)
-	// fmt.Println(sentence)
+	fmt.Println("Indexes: ", positions)
+	fmt.Println("SpaceBar:", positionSp)
+	fmt.Println()
 }
