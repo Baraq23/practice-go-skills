@@ -1,65 +1,31 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
-	// "text/scanner"
+	"rev/functions"
 )
 
 func main() {
-	printSl("text.txt")
-	printSl("text12.txt")
-	printSl("text123C.txt")
-}
-
-// printSl() prints slices of indexes from which each graphic end
-func printSl(file string) {
-	fileCont, err := os.Open(file)
-	if err != nil {
-		fmt.Println("unable to open file")
+	// GetEndPositions("text.txt")
+	// GetEndPositions("text12.txt")
+	lines, positions := funcs.GetEndPositions("tt.txt")
+	if len(positions) == 0 {
+		fmt.Println("error: not able to read file or file is empty")
 		return
 	}
-	defer fileCont.Close()
+	charSlice := funcs.GetCharacterSlice(lines, positions)
 
-	scanner := bufio.NewScanner(fileCont)
+	// fmt.Println(positions)
+	// fmt.Println(len(lines))
+	// fmt.Println(len(charSlice))
 
-	sentence := []string{}
+	artStr := funcs.GetArt(charSlice)
+	fmt.Println(artStr)
 
-	for i := 0; i < 8; i++ {
-		scanner.Scan()
-		line := scanner.Text()
-		sentence = append(sentence, line)
-	}
+	bannerTemplate := "banners/standard.txt"
+	asciiMap := funcs.ReadBanner(bannerTemplate)
 
-	space := false
-	count := 0
-	positions := []int{}
-	positionSp := []int{}
-	for j := 0; j < len(sentence[0]); j++ {
-		for i := 0; i < 8; i++ {
-			if sentence[i][j] != ' ' {
-				space = false
-				count = 0
-				break
-			}
+	convertedStr := funcs.ArtToString(asciiMap, charSlice)
 
-			if i == 7 {
-				space = true
-				if count == 0 {
-					positions = append(positions, j)
-				}
-				if space {
-					count++
-				}
-			}
-			if count == 6 {
-				positionSp = append(positionSp, j+1)
-				count = 0
-			}
-		}
-	}
-	fmt.Println("Indexes: ", positions)
-	fmt.Println("SpaceBar:", positionSp)
-	fmt.Println()
+	fmt.Println(convertedStr)
 }
