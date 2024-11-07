@@ -34,19 +34,15 @@ func GetEndPositionsAndLines(file string) ([][]string, [][]int, error) {
 		}
 	}
 
-	fmt.Println("totallines", totallines)
-
 	if totallines%8 != 0 {
 		return nil, nil, fmt.Errorf("files with new lines are not allowed!")
 	}
-	fmt.Println("All lines length:", len(allLines))
 
 	allPositions := [][]int{}
 	for _, l := range allLines {
 		positions := GetPositions(l)
 		allPositions = append(allPositions, positions)
 	}
-	fmt.Println(allPositions)
 	return allLines, allPositions, nil
 }
 
@@ -76,6 +72,5 @@ func GetPositions(lines []string) []int {
 			}
 		}
 	}
-	fmt.Println(positions)
 	return positions
 }
