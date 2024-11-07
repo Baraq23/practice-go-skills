@@ -7,7 +7,7 @@ func GetCharacterSlice(lines []string, positions []int) [][]string {
 	for i, pos := range positions {
 		prevPos := 0
 		if i > 0 {
-			prevPos = positions[i-1]
+			prevPos = positions[i-1]+1
 		}
 		for j := range lines {
 			charPart := ""

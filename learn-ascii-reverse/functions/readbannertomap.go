@@ -7,11 +7,10 @@ import (
 )
 
 // This function ReadBanner() maps the ascii charracters to their corresponding art.
-func ReadBanner(file string) map[rune][]string {
+func ReadBanner(file string) (map[rune][]string, error) {
 	validBannerTemp := ValidateBanner(file)
 	if !validBannerTemp {
-		fmt.Println("Invalid banner")
-		os.Exit(1)
+		return nil, fmt.Errorf("Banner file not valid.")		
 	}
 	asciiMap := make(map[rune][]string)
 	bannerFile, err := os.Open(file)
@@ -33,5 +32,5 @@ func ReadBanner(file string) map[rune][]string {
 		}
 		asciiMap[rune(runeValue)] = art
 	}
-	return asciiMap
+	return asciiMap, nil
 }

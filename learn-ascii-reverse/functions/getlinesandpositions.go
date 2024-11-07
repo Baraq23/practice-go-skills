@@ -2,26 +2,55 @@ package funcs
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 )
 
 // GetEndPositions() returns slices of indexes from which each graphic end
-func GetEndPositions(file string) ([]string, []int) {
+func GetEndPositionsAndLines(file string) ([][]string, [][]int, error) {
 	fileCont, err := os.Open(file)
 	if err != nil {
 		// fmt.Println("unable to open file")
-		return []string{}, []int{}
+		return nil, nil, fmt.Errorf("error: unable to open the file '%v'", file)
 	}
 	defer fileCont.Close()
 
 	scanner := bufio.NewScanner(fileCont)
 
+	allLines := [][]string{}
 	lines := []string{}
-	for i := 0; i < 8; i++ {
-		scanner.Scan()
+	count := 0
+	totallines := 0
+	for scanner.Scan() {
 		line := scanner.Text()
 		lines = append(lines, line)
+		count++
+		totallines++
+		// fmt.Println("line", totallines)
+		if count == 8 {
+			allLines = append(allLines, lines)
+			count = 0
+			lines = []string{}
+		}
 	}
+
+	fmt.Println("totallines", totallines)
+
+	if totallines%8 != 0 {
+		return nil, nil, fmt.Errorf("files with new lines are not allowed!")
+	}
+	fmt.Println("All lines length:", len(allLines))
+
+	allPositions := [][]int{}
+	for _, l := range allLines {
+		positions := GetPositions(l)
+		allPositions = append(allPositions, positions)
+	}
+	fmt.Println(allPositions)
+	return allLines, allPositions, nil
+}
+
+func GetPositions(lines []string) []int {
 	space := false
 	count := 0
 	positions := []int{}
@@ -47,5 +76,6 @@ func GetEndPositions(file string) ([]string, []int) {
 			}
 		}
 	}
-	return lines, positions
+	fmt.Println(positions)
+	return positions
 }

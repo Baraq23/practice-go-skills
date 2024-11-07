@@ -2,30 +2,41 @@ package main
 
 import (
 	"fmt"
+	"strings"
+
 	"rev/functions"
 )
 
 func main() {
-	// GetEndPositions("text.txt")
-	// GetEndPositions("text12.txt")
-	lines, positions := funcs.GetEndPositions("tt.txt")
-	if len(positions) == 0 {
-		fmt.Println("error: not able to read file or file is empty")
+	lines, positions, err := funcs.GetEndPositionsAndLines("text.txt")
+	if err != nil {
+		fmt.Println(err)
 		return
 	}
-	charSlice := funcs.GetCharacterSlice(lines, positions)
-
-	// fmt.Println(positions)
-	// fmt.Println(len(lines))
-	// fmt.Println(len(charSlice))
-
-	artStr := funcs.GetArt(charSlice)
-	fmt.Println(artStr)
 
 	bannerTemplate := "banners/standard.txt"
-	asciiMap := funcs.ReadBanner(bannerTemplate)
+	asciiMap, err := funcs.ReadBanner(bannerTemplate)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	strSlice := GetConvertedStrings(lines, positions, asciiMap)
+	// fmt.Println(artStr)
 
-	convertedStr := funcs.ArtToString(asciiMap, charSlice)
+	finalStr := strings.Join(strSlice, "\n")
+	fmt.Println(finalStr)
+}
 
-	fmt.Println(convertedStr)
+// Func GetConvertedStrings() returns a slice of stings converted from ascii art to normal text
+func GetConvertedStrings(lines [][]string, positions [][]int, asciiMap map[rune][]string) []string {
+	sliceStr := []string{}
+
+	for i, l := range lines {
+		charSlice := funcs.GetCharacterSlice(l, positions[i])
+		artStr := funcs.GetArt(charSlice)
+		fmt.Println(artStr)
+		convertedStr := funcs.ArtToString(asciiMap, charSlice)
+		sliceStr = append(sliceStr, convertedStr)
+	}
+	return sliceStr
 }
