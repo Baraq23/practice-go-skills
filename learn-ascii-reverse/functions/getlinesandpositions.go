@@ -35,7 +35,7 @@ func GetEndPositionsAndLines(file string) ([][]string, [][]int, error) {
 	}
 
 	if totallines%8 != 0 {
-		return nil, nil, fmt.Errorf("files with new lines are not allowed!")
+		return nil, nil, fmt.Errorf("files with new lines are not allowed")
 	}
 
 	allPositions := [][]int{}
@@ -72,5 +72,6 @@ func GetPositions(lines []string) []int {
 			}
 		}
 	}
+	fmt.Println(positions)
 	return positions
 }

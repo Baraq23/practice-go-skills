@@ -10,13 +10,12 @@ import (
 func ReadBanner(file string) (map[rune][]string, error) {
 	validBannerTemp := ValidateBanner(file)
 	if !validBannerTemp {
-		return nil, fmt.Errorf("Banner file not valid.")		
+		return nil, fmt.Errorf("error: banner file '%v' not valid", file)		
 	}
 	asciiMap := make(map[rune][]string)
 	bannerFile, err := os.Open(file)
 	if err != nil {
-		fmt.Printf("Error: Could not open %v file\n", file)
-		os.Exit(1)
+		return nil, fmt.Errorf("error: could not open banner file '%v'", file)
 	}
 	defer bannerFile.Close()
 	scanner := bufio.NewScanner(bannerFile)
