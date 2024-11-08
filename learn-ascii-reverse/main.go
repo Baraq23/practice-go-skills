@@ -52,11 +52,7 @@ func main() {
 
 	reversedText := ""
 	var err error
-	if *revfile == "" {
-		fmt.Println("error: txt file name not give.")
-		fmt.Println("Usage: go run . [OPTION]\n\nEX: go run . --reverse=<fileName>")
-		return
-	} else {
+	if *revfile != "" {
 
 		asciiMapS, errMapS := funcs.ReadBanner("banners/standard.txt")
 		if errMapS != nil {
