@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"strings"
+	// "strings"
 
 	"rev/functions"
 )
@@ -50,58 +50,46 @@ func main() {
 	// 	return
 	// }
 
-	reversedText := ""
-	var err error
+	
 	if *revfile != "" {
-
-		asciiMapS, errMapS := funcs.ReadBanner("banners/standard.txt")
-		if errMapS != nil {
-			fmt.Println(errMapS)
+		reversedText,err := Reverse(*revfile)
+		if err != nil {
+			fmt.Println(err)
 			fmt.Println("Usage: go run . [OPTION]\n\nEX: go run . --reverse=<fileName>")
 			return
+		}
+		fmt.Println(reversedText)		
+	}
+}
+
+func Reverse(revfile string) (string, error) {
+
+	reversedText := ""
+	var err error
+		asciiMapS, errMapS := funcs.ReadBanner("banners/standard.txt")
+		if errMapS != nil {			
+			return "", errMapS
 		}
 		asciiMapT, errMapT := funcs.ReadBanner("banners/thinkertoy.txt")
 		if errMapT != nil {
-			fmt.Println(errMapT)
-			fmt.Println("Usage: go run . [OPTION]\n\nEX: go run . --reverse=<fileName>")
-			return
+			return "", errMapT
 		}
 		asciiMapSh, errMapSh := funcs.ReadBanner("banners/shadow.txt")
 		if errMapSh != nil {
-			fmt.Println(errMapSh)
-			fmt.Println("Usage: go run . [OPTION]\n\nEX: go run . --reverse=<fileName>")
-			return
+			return "", errMapSh
 		}
 
 		maps := []map[rune][]string{}
 		maps = append(maps, asciiMapS, asciiMapSh, asciiMapT)
 
 		for _, m := range maps {
-			reversedText, err = AsciiReverse(*revfile, m)
+			reversedText, err = funcs.AsciiReverse(revfile, m)
 			if err != nil {
-				fmt.Println(err)
-				fmt.Println("Usage: go run . [OPTION]\n\nEX: go run . --reverse=<fileName>")
-				return
+				return "", err
 			}
 			if len(reversedText) != 0 {
 				break
 			}
-		}
-		
-	}
-	fmt.Println(reversedText)
-}
-
-// func AsciiReverse if called when reverse flag is used
-func AsciiReverse(revfile string, asciiMap map[rune][]string) (string, error) {
-
-	lines, positions, err := funcs.GetEndPositionsAndLines(revfile)
-	if err != nil {
-		fmt.Println(err)
-		return "", err
-	}
-
-	strSlice := funcs.GetConvertedStrings(lines, positions, asciiMap)
-	finalStr := strings.Join(strSlice, "\n")
-	return finalStr, nil
+		}		
+		return reversedText, nil
 }
