@@ -18,7 +18,7 @@ func main() {
 
 	// check if the length of the argument after the flags is only 1.
 	if flag.NArg() > 1 {
-		fmt.Println("error: too many arguments.")
+		fmt.Println("error: wrong input format.")
 		fmt.Println("Usage: go run . [OPTION] [SOME TEXT]\n\nEX: go run . --banner=<banner-template> \"some text.\" \n[OPTIONS]: <shadow, thinkertoy, standard>")
 		return
 	}

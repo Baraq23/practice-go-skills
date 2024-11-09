@@ -1,6 +1,9 @@
 package funcs
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 
 
@@ -23,16 +26,19 @@ func Reverse(revfile string) (string, error) {
 		maps := []map[rune][]string{}
 		maps = append(maps, asciiMapS, asciiMapSh, asciiMapT)
 
+		fString := ""
 		for _, m := range maps {
 			reversedText, err = AsciiReverse(revfile, m)
 			if err != nil {
 				return "", err
 			}
-			if len(reversedText) != 0 {
-				break
-			}
-		}		
-		return reversedText, nil
+			fString+=reversedText
+		}
+		if len(fString) == 0 {
+			return "", fmt.Errorf("file provided may contain incompleted or corrupted asciiart")
+		}
+		fString = strings.TrimSpace(fString)
+		return fString, nil
 }
 
 
@@ -41,7 +47,6 @@ func Reverse(revfile string) (string, error) {
 func AsciiReverse(revfile string, asciiMap map[rune][]string) (string, error) {
 	lines, positions, err := GetEndPositionsAndLines(revfile)
 	if err != nil {
-		// fmt.Println(err)
 		return "", err
 	}
 

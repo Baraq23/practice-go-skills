@@ -23,6 +23,12 @@ func GetEndPositionsAndLines(file string) ([][]string, [][]int, error) {
 	totallines := 0
 	for scanner.Scan() {
 		line := scanner.Text()
+		if line == "\n"{
+			continue
+		}
+		if line[len(line)-1] == '$' {
+			line = line[:len(line)-1]
+		}
 		lines = append(lines, line)
 		count++
 		totallines++
@@ -34,9 +40,12 @@ func GetEndPositionsAndLines(file string) ([][]string, [][]int, error) {
 		}
 	}
 
-	if totallines%8 != 0 {
-		return nil, nil, fmt.Errorf("files with new lines are not allowed")
+	if totallines > 9 {
+		if totallines%8 != 0 {
+			return nil, nil, fmt.Errorf("files with new lines are not allowed")
+		}
 	}
+	
 
 	allPositions := [][]int{}
 	for _, l := range allLines {
@@ -52,6 +61,9 @@ func GetPositions(lines []string) []int {
 	positions := []int{}
 	for j := 0; j < len(lines[0]); j++ {
 		for i := 0; i < 8; i++ {
+			if lines[i][j] =='$' {
+				break
+			}
 			if lines[i][j] != ' ' {
 				space = false
 				count = 0
@@ -72,6 +84,5 @@ func GetPositions(lines []string) []int {
 			}
 		}
 	}
-	fmt.Println(positions)
 	return positions
 }
