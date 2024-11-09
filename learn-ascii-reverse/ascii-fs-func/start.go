@@ -1,7 +1,6 @@
 package asciiart
 
 import (
-	"fmt"
 	"rev/functions"
 	"strings"
 )
@@ -21,7 +20,6 @@ func GetAsciiArt(input, bannerTemplate string) (string, error) {
 	artSlice := []string{}
 
 	words := strings.Split(input, "\n")
-	fmt.Printf("words: %q", words)
 	// newLine := false
 	art := ""
 	nl := ""
@@ -30,12 +28,13 @@ func GetAsciiArt(input, bannerTemplate string) (string, error) {
 			nl+="\n"
 			continue
 		} else {
-			art = nl + PrintArt(asciiMap, word)
+			// fmt.Println(len(nl))
+			art = nl + RearrangeArt(asciiMap, word)
 			nl = ""
 		}
 		artSlice = append(artSlice, art)
 	}
 	artString := strings.Join(artSlice, "\n")
-	// This return value is used for testing purposes.
+	artString+=nl
 	return artString, nil
 }

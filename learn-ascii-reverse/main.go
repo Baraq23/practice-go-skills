@@ -25,6 +25,15 @@ func main() {
 
 	if flag.NArg() == 1 {
 		input := flag.Arg(0)
+
+		nl := asciiart.FormatSpChar(input)
+		if newLinesOnly(nl){
+			for i := 0; i < len(nl); i++ {
+				fmt.Println()
+			}
+			return
+		}
+
 		if *bannerTempl != "shadow" && *bannerTempl != "thinkertoy" && *bannerTempl != "standard" {
 			fmt.Println("error: undefined banner template")
 			fmt.Println("Usage: go run . [OPTION] [TEXT]\n\nEX: go run . --output=<fileName> --banner=<bannerTemplate>\n[OPTIONS]: <shadow, thinkertoy, standard>")
@@ -59,4 +68,14 @@ func main() {
 		}
 		fmt.Println(reversedText)
 	}
+}
+
+
+func newLinesOnly(s string) bool {
+	for _, nl := range s {
+		if nl != '\n' {
+			return false
+		}
+	}
+	return true
 }
