@@ -2,8 +2,8 @@ package asciiart
 
 import (
 	"fmt"
-	"strings"
 	"rev/functions"
+	"strings"
 )
 
 // This function is the starting point of the program.
@@ -18,16 +18,24 @@ func GetAsciiArt(input, bannerTemplate string) (string, error) {
 		return "", err
 	}
 	//Art string will be used during testing of the program.
-	artString := ""
+	artSlice := []string{}
+
 	words := strings.Split(input, "\n")
+	fmt.Printf("words: %q", words)
+	// newLine := false
+	art := ""
+	nl := ""
 	for _, word := range words {
 		if word == "" {
-			fmt.Println()
+			nl+="\n"
+			continue
 		} else {
-			art := PrintArt(asciiMap, word)
-			artString = art
+			art = nl + PrintArt(asciiMap, word)
+			nl = ""
 		}
+		artSlice = append(artSlice, art)
 	}
+	artString := strings.Join(artSlice, "\n")
 	// This return value is used for testing purposes.
 	return artString, nil
 }

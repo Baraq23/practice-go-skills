@@ -1,6 +1,6 @@
 package asciiart
 
-import "fmt"
+// import "fmt"
 
 // This function stores the ascii art to then prints the ascii art.
 func PrintArt(asciiMap map[rune][]string, input string) string {
@@ -20,7 +20,7 @@ func PrintArt(asciiMap map[rune][]string, input string) string {
 		}
 	}
 	// Write the Art in line.
-	fmt.Println(word)
+	// fmt.Println(word)
 	// This return value will be usefeul during testing.
 	return word
 }

@@ -8,7 +8,7 @@ func StrValidate(str string) error {
 		if v >= 32 && v <= 126 || v == '\n' {
 			continue
 		} else {
-			return fmt.Errorf("Unrecognised character: %v\n", v)
+			return fmt.Errorf("unrecognised character: '%v'", v)
 		}
 	}
 	return nil
