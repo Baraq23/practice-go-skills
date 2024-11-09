@@ -8,9 +8,9 @@ import (
 
 // This function ReadBanner() maps the ascii charracters to their corresponding art.
 func ReadBanner(file string) (map[rune][]string, error) {
-	validBannerTemp := ValidateBanner(file)
+	validBannerTemp, err:= ValidateBanner(file)
 	if !validBannerTemp {
-		return nil, fmt.Errorf("error: banner file '%v' not valid", file)		
+		return nil, err		
 	}
 	asciiMap := make(map[rune][]string)
 	bannerFile, err := os.Open(file)
