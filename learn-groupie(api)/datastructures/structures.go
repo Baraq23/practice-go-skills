@@ -35,13 +35,9 @@ type DATES struct {
 }
 
 // Relations API
-type dateLocationStruct struct {
-	locDate []map[string][]string
-}
-
 type relationsStructItem struct {
-	Id             int                  `json:"id"`
-	DatesLocations []dateLocationStruct `json:"datesLocations"`
+	Id             int                 `json:"id"`
+	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
 type RELATION struct {
