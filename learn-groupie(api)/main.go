@@ -6,69 +6,41 @@ import (
 	"groupie/datastructures"
 )
 
+var (
+	Artists []datastructures.ARTISTS
+	Locations datastructures.LOCATIONS
+	Dates datastructures.DATES
+	Relations datastructures.RELATION
+
+)
+
+var err error
+
 func main() {
-	// artists, err := datastructures.FetchArtists(datastructures.ArtistsAPI)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// }
-
-	// locations, err := datastructures.FetchLocations(datastructures.LocationsAPI)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// }
-
-	// dates, err := datastructures.FetchDates(datastructures.DatesAPI)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	return
-	// }
-
-	relations, err := datastructures.FetchRelations(datastructures.RelationAPI)
+	Artists, err = datastructures.FetchArtists(datastructures.ArtistsAPI)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	// listArtists(artists)
-	// listLocations(locations)
-	// listDates(dates)
-	listRelations(relations)
-}
-
-func listArtists(content []datastructures.ARTISTS) {
-	fmt.Println("PRINTING ARTISTS")
-	count := 1
-	for _, co := range content {
-		fmt.Println(count)
-		fmt.Println(co)
-		fmt.Println()
-		count++
-
+	Locations, err = datastructures.FetchLocations(datastructures.LocationsAPI)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
-}
 
-func listLocations(content datastructures.LOCATIONS) {
-	fmt.Println("PRINTING LOCATIONS")
-	count := 1
-	fmt.Println(content)
-	fmt.Println()
-	count++
-}
+	Dates, err = datastructures.FetchDates(datastructures.DatesAPI)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-func listDates(content datastructures.DATES) {
-	fmt.Println("PRINTING DATES")
-	count := 1
-	fmt.Println(content)
-	fmt.Println()
-	count++
-}
+	Relations, err = datastructures.FetchRelations(datastructures.RelationAPI)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-func listRelations(content datastructures.RELATION) {
-	fmt.Println("PRINTING RELATIONS")
-	count := 1
-	fmt.Println(content)
-	fmt.Println()
-	count++
+
+	fmt.Println(Relations)
 }
