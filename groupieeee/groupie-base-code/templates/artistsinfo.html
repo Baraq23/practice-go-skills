@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/style.css?v=1.2">
+    <title>Document</title>
+</head>
+<body>
+    
+    
+<!--     
+    <p><strong>Location:</strong> {{.Locations}}</p>
+    <p><strong>Concert Dates:</strong> {{.ConcertDates}}</p>
+    <p><strong>Relations:</strong> {{.Relations}}</p> -->
+    
+    <div class="artistsinfo-container">
+        <div class="artists-header">
+            <h1>{{.Name}}</h1>
+        </div>
+        <div class="artist-image">
+            <img src="{{.Image}}" alt="{{.Name}}"><br>
+        </div>
+        <div class="basic-info">
+            <p><strong>Creation Date:</strong> {{.CreationDate}}</p>
+            <p><strong>First Album:</strong> {{.FirstAlbum}}</p>
+            <p><strong>Members:</strong> {{range .Members}}{{.}} {{end}}</p>
+        </div>
+        <div class="artists-locations">
+            <h2>Locations </h2>
+            <ol>
+                {{range .Locations}}
+                <li>{{.}}</li>
+                {{end}}
+            </ol>
+        </div>
+        <div class="artists-concertdates">
+            <h2>Concert Dates</h2>
+            <ol>
+                {{range .ConcertDates}}
+                <li>{{.}}</li>
+                {{end}}
+            </ol>
+        </div>
+        <div class="artists-relations">
+            <h2>Relations</h2>
+            <ol>
+                {{range $relation, $details := .Relations}}
+                <li>
+                    <strong>{{ $relation }}</strong>
+                    <ul>
+                        {{range $details}}
+                        <li>{{.}}</li>
+                        {{end}}
+                    </ul>
+                </li>
+                {{end}}
+            </ol>
+        </div>
+        <a href="/artists">Back to Artists</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/style.css?v=1.2">
+    <title>TrackMuse</title>
+</head>
+<body>
+    <!-- Header Starts here -->
+    <div class="header">
+        <h1>Artists</h1>
+    </div>
+    <!-- Header ends here -->
+
+    <!-- The container grid starts here -->
+    <div class="container">
+        {{range .}}
+        <a href="/artist/{{.Id}}" class="card">
+           <div >
+                <img src="{{.Image}}" alt="{{.Name}}" width="200"><br>
+                <strong>{{.Name}}</strong>
+           </div>
+        </a>
+        {{end}}
+    </div>
+<!-- The container grid ends-->
+
+</body>
+</html>

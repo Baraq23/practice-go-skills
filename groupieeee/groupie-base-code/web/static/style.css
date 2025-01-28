@@ -1,0 +1,44 @@
+.header {
+    color: black;
+    text-align: center;
+    background-color: rgb(240, 170, 78);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    width: 100%;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.card {
+    background-color: yellowgreen;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.artistsinfo-container{
+    display: grid;
+    grid-template-areas: 
+    'header header header'
+    'image image basicinfo'
+    'location concertdates relations';
+    gap: 20px;
+    background-color: aliceblue;
+    padding: 10px;
+}
+.artist-header { grid-area: header; }
+.artist-image { grid-area: image; }
+.basic-info { grid-area: basicinfo; }
+.artists-locations { grid-area: location; }
+.artists-concertdates { grid-area: concertdates; }
+.artists-relations { grid-area: relations; }
+
+.artists-locations ul {
+    list-style-type: disc; 
+    margin-left: 20px; 
+}
