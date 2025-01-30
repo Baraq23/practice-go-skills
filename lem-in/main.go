@@ -17,7 +17,7 @@ func main() {
 	}
 	inputFile := os.Args[1]
 	if ext := filepath.Ext(inputFile); ext != ".txt" {
-		fmt.Printf("only files with .txt extension are accepted")
+		fmt.Println("only files with .txt extension are accepted")
 		return
 	}
 
@@ -28,10 +28,12 @@ func main() {
 	}
 	defer file.Close()
 
+	// get file content into slice
 	fileSlice := []string{}
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
+		line = strings.TrimSpace(line)
 		fileSlice = append(fileSlice, line)
 	}
 
@@ -40,10 +42,10 @@ func main() {
 		fmt.Println("ERROR: invalid number of Ants")
 		return
 	}
-	fmt.Printf("Number of ants: %t\n", numberofants)
+	fmt.Sprintf("Number of ants: %t\n", numberofants)
 
-	connections, points, startRoom, endRoom := getslices(fileSlice)
-	fmt.Println(connections, points, startRoom, endRoom)
+	connections, points, startRoom, endRoom := Getslices(fileSlice)
+	// fmt.Println(connections, points, startRoom, endRoom)
 	allPaths, err := DFS(connections, points, startRoom, endRoom)
 	if err != nil {
 		fmt.Println(err)
@@ -51,33 +53,16 @@ func main() {
 	}
 
 	// Print all paths
-	fmt.Println("All possible paths from O to E:")
+	fmt.Printf("All possible paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
 	for _, path := range allPaths {
+		fmt.Println(path)
+	}
+
+	optimizedPaths := Optimizer(allPaths)
+
+	fmt.Printf("Optimized paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
+	for _, path := range optimizedPaths {
 		fmt.Println(path)
 	}
 }
 
-func getslices(l []string) ([][]string, [][]string, []string, []string) {
-	connections := [][]string{}
-	points := [][]string{}
-	startRoom := []string{}
-	endRoom := []string{}
-
-	for i, line := range l {
-		if strings.Contains(line, "-") {
-			c := strings.Split(line, "-")
-			connections = append(connections, c)
-		}
-		if strings.Contains(line, " ") {
-			p := strings.Split(line, " ")
-			points = append(points, p)
-		}
-		if strings.Contains(line, "##start") && i+1 != len(l) {
-			startRoom = strings.Split(l[i+1], " ")
-		}
-		if strings.Contains(line, "##end") && i+1 != len(l) {
-			endRoom = strings.Split(l[i+1], " ")
-		}
-	}
-	return connections, points, startRoom, endRoom
-}
