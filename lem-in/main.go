@@ -38,10 +38,12 @@ func main() {
 	}
 
 	numberofants, err := strconv.Atoi(fileSlice[0])
-	if err != nil {
+	fmt.Println(numberofants)
+	if err != nil || numberofants <= 0  {
 		fmt.Println("ERROR: invalid number of Ants")
 		return
 	}
+	
 	fmt.Sprintf("Number of ants: %t\n", numberofants)
 
 	connections, points, startRoom, endRoom := Getslices(fileSlice)
@@ -51,18 +53,24 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	if len(allPaths) == 0 {
+		fmt.Printf("Error: No complete pathe from %s to %s was found.\n", string(startRoom[0]), string(endRoom[0]))
+		return
+	}
 
 	// Print all paths
-	fmt.Printf("All possible paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
-	for _, path := range allPaths {
-		fmt.Println(path)
-	}
+	// fmt.Printf("All possible paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
+	// for _, path := range allPaths {
+	// 	fmt.Println(path)
+	// }
 
 	optimizedPaths := Optimizer(allPaths)
 
-	fmt.Printf("Optimized paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
-	for _, path := range optimizedPaths {
-		fmt.Println(path)
-	}
+	// fmt.Printf("Optimized paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
+	// for _, path := range optimizedPaths {
+	// 	fmt.Println(path)
+	// }
+
+	Assignants(numberofants, optimizedPaths)
 }
 

@@ -20,14 +20,14 @@ func Optimizer(paths [][]string) [][]string {
 	return optimized
 }
 
-func pathsColide(paths [][]string, shortPath []string) bool {
+func pathsColide(optimized [][]string, shortPath []string) bool {
 	trimed := [][]string{}
 	shortPath = shortPath[1 : len(shortPath)-1]
-	for _, p := range paths {
+	for _, p := range optimized {
 		trimed = append(trimed, p[1:len(p)-1])
 	}
 	for _, sroom := range shortPath {
-		for _, path := range paths {
+		for _, path := range optimized {
 			for _, room := range path {
 				if sroom == room {
 					return true
