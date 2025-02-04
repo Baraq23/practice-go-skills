@@ -1,46 +1,33 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
+	"log"
+	"net/http"
 
-	"groupie/datastructures"
-)
+	// "groupie/datastructures"
 
-var (
-	Artists []datastructures.ARTISTS
-	Locations datastructures.LOCATIONS
-	Dates datastructures.DATES
-	Relations datastructures.RELATION
-
+	// "golang.org/x/tools/cmd/getgo/server"
 )
 
 var err error
 
 func main() {
-	Artists, err = datastructures.FetchArtists(datastructures.ArtistsAPI)
+	// err := datastructures.Fetch()
 	if err != nil {
-		fmt.Println(err)
+		log.Println(err)
 		return
 	}
+	port := ":3000"
+	// fmt.Println("\nRelations\n", datastructures.Relations)
+	// fmt.Println("\nDates\n", datastructures.Dates)
+	// fmt.Println("\nLocations", datastructures.Locations)
+	// fmt.Println("\nArtists\n", datastructures.Artists)
 
-	Locations, err = datastructures.FetchLocations(datastructures.LocationsAPI)
+	log.Println("Server running on http://localhost"+port)
+	err = http.ListenAndServe(port, nil)
 	if err != nil {
-		fmt.Println(err)
+		log.Println("Error creating server: ", err)
 		return
 	}
-
-	Dates, err = datastructures.FetchDates(datastructures.DatesAPI)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-	Relations, err = datastructures.FetchRelations(datastructures.RelationAPI)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-
-
-	fmt.Println(Relations)
 }

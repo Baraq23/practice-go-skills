@@ -12,6 +12,43 @@ var (
 	RelationAPI  string = "https://groupietrackers.herokuapp.com/api/relation"
 )
 
+var (
+	Artists []ARTISTS
+	Locations LOCATIONS
+	Dates DATES
+	Relations RELATION
+
+)
+
+var err error
+
+func Fetch() error {
+	Artists, err = FetchArtists(ArtistsAPI)
+	if err != nil {
+		
+		return err
+	}
+
+	Locations, err = FetchLocations(LocationsAPI)
+	if err != nil {
+		
+		return err
+	}
+
+	Dates, err = FetchDates(DatesAPI)
+	if err != nil {
+		
+		return err
+	}
+
+	Relations, err = FetchRelations(RelationAPI)
+	if err != nil {
+		
+		return err
+	}
+	return nil
+}
+
 func FetchArtists(api string) ([]ARTISTS, error) {
 	resp, err := http.Get(api)
 	if err != nil {
