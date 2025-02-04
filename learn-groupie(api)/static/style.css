@@ -1,1 +1,41 @@
 /* css code goes here */
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    height: 45vh;
+    background-image: url("../static/concert-background-dd0syeox7rmi78l0.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: aliceblue;
+}
+
+.artists-card {
+    display: inline-block;
+    min-height: 20vh;
+    min-width: 20vw;
+    border: #3106f3 solid 1px;
+    padding: auto;
+    text-align: center;
+    
+}
+
+.img img {
+    height: 150px;
+    width: auto;
+}
+
+.footer {
+    text-align: center;
+    color:aliceblue;
+    height: 5vh;
+    background-color: darkolivegreen;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
