@@ -58,19 +58,11 @@ func main() {
 		return
 	}
 
-	// Print all paths
-	// fmt.Printf("All possible paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
-	// for _, path := range allPaths {
-	// 	fmt.Println(path)
-	// }
-
+	
 	optimizedPaths := Optimizer(allPaths)
 
-	// fmt.Printf("Optimized paths from %s to %s:\n", string(startRoom[0]), string(endRoom[0]))
-	// for _, path := range optimizedPaths {
-	// 	fmt.Println(path)
-	// }
-
-	Assignants(numberofants, optimizedPaths)
+	antRoutes := Assignants(numberofants, optimizedPaths)
+	fmt.Println(antRoutes)
+	fmt.Println(optimizedPaths)
 }
 
