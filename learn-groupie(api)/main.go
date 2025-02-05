@@ -2,11 +2,11 @@ package main
 
 import (
 	// "fmt"
+
 	"log"
 	"net/http"
-
 	// "groupie/datastructures"
-
+	"groupie/handlers"
 	// "golang.org/x/tools/cmd/getgo/server"
 )
 
@@ -19,12 +19,10 @@ func main() {
 		return
 	}
 	port := ":3000"
-	// fmt.Println("\nRelations\n", datastructures.Relations)
-	// fmt.Println("\nDates\n", datastructures.Dates)
-	// fmt.Println("\nLocations", datastructures.Locations)
-	// fmt.Println("\nArtists\n", datastructures.Artists)
 
-	log.Println("Server running on http://localhost"+port)
+	http.HandleFunc("/", handlers.HomeHandler)
+
+	log.Println("Server running on http://localhost" + port)
 	err = http.ListenAndServe(port, nil)
 	if err != nil {
 		log.Println("Error creating server: ", err)
