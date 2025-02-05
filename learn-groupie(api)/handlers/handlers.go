@@ -1,12 +1,17 @@
 package handlers
 
 import (
-	"fmt"
+	// "fmt"
+	"html/template"
 	"log"
 	"net/http"
 )
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-	b, _ := fmt.Fprintf(w, "hellow there")
-	log.Printf("%d bites have been written on the page", b)
+	tmpl:= template.Must(template.ParseFiles("hello.html"))
+	err := tmpl.Execute(w, nil)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		log.Println("error parsing templates.")
+	}
 }
