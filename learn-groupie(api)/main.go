@@ -23,6 +23,7 @@ func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.HandleFunc("/", handlers.HomeHandler)
+	http.HandleFunc("/artist", handlers.ArtistHandler)
 
 	log.Println("Server running on http://localhost" + port)
 	err = http.ListenAndServe(port, nil)
