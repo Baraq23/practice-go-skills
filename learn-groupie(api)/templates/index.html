@@ -20,19 +20,21 @@
         </header> 
     </div>
     <h2>Artists</h2>
+    <div class="artists-body artist-list" >
     {{ range . }}
-    <div class="artist">
-        <a href="artist.html">
-            <div class="artists-card">
-                <h3>{{ .Name }}</h3>
-                <div class="img">
-                    <p>Artist Id: {{ .Id }}</p>
-                    <img src="{{ .ImageLink }}" alt="Artist {{ .Id }}">
-                </div>       
-            </div>
-        </a>
-    </div>
+        <div id="artist-item">
+            <a href="/artist?id={{ .Id }}">
+                <div class="artists-card">
+                    <h3>{{ .Name }}</h3>
+                    <div class="img">
+                        <p>Artist Id: {{ .Id }}</p>
+                        <img src="{{ .ImageLink }}" alt="Artist {{ .Id }}">
+                    </div>       
+                </div>
+            </a>
+        </div>
     {{ end }}
+    </div>
    
        
 </body>
