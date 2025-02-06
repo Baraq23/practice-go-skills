@@ -19,6 +19,8 @@ func main() {
 		return
 	}
 	port := ":3000"
+	fs := http.FileServer(http.Dir("static"))
+	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	http.HandleFunc("/", handlers.HomeHandler)
 
