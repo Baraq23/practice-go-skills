@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "fmt"
 	"strconv"
 )
 
@@ -30,10 +29,6 @@ func Assignants(n int, optPaths [][]string) [][]string{
 	antRoute := make([][]string, len(routeLen))
 
 	antRoute = placeAnt(antRoute, trimmedPaths, routeLen, n)
-	// fmt.Println("antroute:\n", antRoute)
-	// fmt.Println("optPaths:\n", optPaths)
-	// fmt.Println("trimmedPaths:\n", trimmedPaths)
-	// fmt.Println("routeLen:\n", routeLen)
 	return antRoute
 }
 

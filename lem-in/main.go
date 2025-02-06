@@ -54,7 +54,7 @@ func main() {
 		return
 	}
 	if len(allPaths) == 0 {
-		fmt.Printf("Error: No complete pathe from %s to %s was found.\n", string(startRoom[0]), string(endRoom[0]))
+		fmt.Printf("Error: No complete path from %s to %s was found.\n", string(startRoom[0]), string(endRoom[0]))
 		return
 	}
 
