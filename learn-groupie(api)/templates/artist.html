@@ -23,14 +23,22 @@
     <h2>{{ .Name }}</h2>
     <div class="main-div">
         <img src="{{ .ImageLink }}" alt="{{ .Name }}">
-        <h4>Creation Date:</h4>
-        <p>{{ .CreationDate }}</p>
-        <h4>Members</h4>
-        <ol>
-            {{ range .Members}}
-            <li>{{ . }}</li>
-            {{ end }}
-        </ol>
+        <div>
+            <h4>First-Album</h4>
+            <p>{{ .FirstAlbum }}</p>
+        </div>
+        <div>
+            <h4>Creation Date:</h4>
+            <p>{{ .CreationDate }}</p>
+        </div>
+        <div>
+            <h4>Members</h4>
+            <ol>
+                {{ range .Members}}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ol>
+        </div>
         <div class="card-buttons">
             <button>Dates</button>
             <button>Locations</button>
