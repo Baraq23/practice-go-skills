@@ -5,7 +5,7 @@ import (
 
 	"log"
 	"net/http"
-	// "groupie/datastructures"
+	"groupie/datastructures"
 	"groupie/handlers"
 	// "golang.org/x/tools/cmd/getgo/server"
 )
@@ -13,7 +13,7 @@ import (
 var err error
 
 func main() {
-	// err := datastructures.Fetch()
+	err := datastructures.Fetch()
 	if err != nil {
 		log.Println(err)
 		return
