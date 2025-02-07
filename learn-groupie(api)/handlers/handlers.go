@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	// "fmt"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -15,8 +13,9 @@ var Tmpl = template.Must(template.ParseGlob("templates/*.html"))
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	err := Tmpl.ExecuteTemplate(w, "index.html", datastructures.Artists)
+
 	if err != nil {
-		log.Println("error parsing index.html templates.")
+		log.Println("error parsing index.html templates:", err)
 		return
 	}
 }
@@ -30,18 +29,36 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Page not found", http.StatusNotFound)
 		return
 	}
-	var artist datastructures.ARTISTS
-	fmt.Println("id", id)
+
+	type ArtistInfo struct {
+		Artist datastructures.ARTISTS
+		DatesInfo []string
+		LocationsInfo []string
+	}
+
+	var ThisArtist datastructures.ARTISTS
+	var ArtistDates []string
+	var ArtistLocations []string
+
 	for _, art := range datastructures.Artists {
 		if art.Id == id {
-			fmt.Println("here")
-			artist = art
+			ThisArtist = art
+			ArtistDates = datastructures.Dates.Index[id].Dates
+			ArtistLocations = datastructures.Locations.Index[id].Locations
 			break
 		}
 	}
-	err = Tmpl.ExecuteTemplate(w, "artist.html", artist)
+
+	data := ArtistInfo{
+		Artist: ThisArtist,
+		DatesInfo: ArtistDates,
+		LocationsInfo: ArtistLocations,
+	}
+
+	err = Tmpl.ExecuteTemplate(w, "artist.html", data)
 	if err != nil {
-		log.Println("Error passing artist.html templates")
+		log.Println("Error passing artist.html templates:", err)
+		http.Error(w, "Page not found", http.StatusNotFound)
 		return
 	}
 }
