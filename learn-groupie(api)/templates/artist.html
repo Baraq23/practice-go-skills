@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
     <link rel="stylesheet" href="../static/artist.css">
-    <title>{{ .Name }}</title>
+    <title>{{ .Artist.Name }}</title>
 </head>
 <body>
     <div class="header">
@@ -20,21 +20,21 @@
             </nav>
         </header> 
     </div>
-    <h2>{{ .Name }}</h2>
+    <h2>{{ .Artist.Name }}</h2>
     <div class="main-div">
-        <img src="{{ .ImageLink }}" alt="{{ .Name }}">
+        <img src="{{ .Artist.ImageLink }}" alt="{{ .Artist.Name }}">
         <div>
             <h4>First-Album</h4>
-            <p>{{ .FirstAlbum }}</p>
+            <p>{{ .Artist.FirstAlbum }}</p>
         </div>
         <div>
             <h4>Creation Date:</h4>
-            <p>{{ .CreationDate }}</p>
+            <p>{{ .Artist.CreationDate }}</p>
         </div>
         <div>
             <h4>Members</h4>
             <ol>
-                {{ range .Members}}
+                {{ range .Artist.Members}}
                 <li>{{ . }}</li>
                 {{ end }}
             </ol>
@@ -42,6 +42,20 @@
         <div class="card-buttons">
             <button>Dates</button>
             <button>Locations</button>
+        </div>
+        <div class="dates-card">
+            <ul>
+                {{ range .DatesInfo }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="locations-card">
+            <ul>
+                {{ range .LocationsInfo }}
+                <li>{{ . }}</li>
+                {{ end }}
+            </ul>
         </div>
     </div>
 
