@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,11 +17,14 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		log.Println("error parsing index.html templates:", err)
+		// w.WriteHeader(http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
 }
 
 func ErrorHandler(w http.ResponseWriter, r *http.Request, statusCode uint, message string) {
+	w.WriteHeader(int(statusCode))
 	data := struct {
 		Status uint
 		Message string
@@ -31,9 +35,9 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, statusCode uint, messa
 	err := Tmpl.ExecuteTemplate(w, "error-page.html", data)
 	if err != nil {
 		log.Println("error parsing error-page.html:", err)
+		w.Write([]byte("Internal Server Error."))
 		return
 	}
-	return
 }
 
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
@@ -42,8 +46,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil || id > len(datastructures.Artists) || id < 0 {
 		log.Printf("Error %d: Not found.\n", http.StatusNotFound)
-		http.Error(w, "Page not found", http.StatusNotFound)
-		ErrorHandler(w, r, http.StatusNotFound, "Page Not Found")
+		ErrorHandler(w, r, http.StatusNotFound, fmt.Sprintf("Artist of Id: %s Does Not Exist.", strId))
 		return
 	}
 
@@ -75,8 +78,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	err = Tmpl.ExecuteTemplate(w, "artist.html", data)
 	if err != nil {
 		log.Println("Error passing artist.html templates:", err)
-		ErrorHandler(w, r, http.StatusNotFound,"Page not found")
-		http.Error(w, "Page not found", http.StatusNotFound)
+		ErrorHandler(w, r, http.StatusInternalServerError, "Internal Server Error.")
 		return
 	}
 }
