@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <title></title>
+    <title>Error {{ .Status }}</title>
 </head>
 <body>
     <div class="header">
         {{ template "HeaderTemplate" }}
     </div>
    <div class="error-body">
-    <did class="error-card">
-        <h2>Error</h2>
+    <div class="error-card">
+        <h1>Error</h1>
         <h1>{{ .Status }}</h1>
         <p> {{ .Message }}</p>
-    </did>
+    </div>
    </div>
    <div>
     <button class="back" id="back-button">Back</button>
