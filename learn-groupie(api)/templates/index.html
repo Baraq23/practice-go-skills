@@ -8,16 +8,7 @@
 </head>
 <body>
     <div class="header">
-        <header>
-            <nav>
-                <h1>Groupie Tracker</h1> 
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>contact Us</li>
-                </ul>
-            </nav>
-        </header> 
+        {{ template "HeaderTemplate" }}
     </div>
     <h2>Artists</h2>
     <div class="artists-body artist-list" >
@@ -36,7 +27,8 @@
     {{ end }}
     </div>
    
-       
+   
+    <script type="module" src="../static/app.js"></script>
 </body>
-{{template "footerhtml"}}
+{{template "footerhtml" }}
 </html>
