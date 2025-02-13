@@ -4,20 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <title>Groupie Tracker</title>
+    <title></title>
 </head>
 <body>
     <div class="header">
-        <header>
-            <nav>
-                <h1>Groupie Tracker</h1> 
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>contact Us</li>
-                </ul>
-            </nav>
-        </header> 
+        {{ template "HeaderTemplate" }}
     </div>
    <div class="error-body">
     <did class="error-card">
@@ -25,6 +16,9 @@
         <h1>Code</h1>
         <p>Error message</p>
     </did>
+   </div>
+   <div>
+    <button class="back" id="back-button">Back</button>
    </div>
        
 </body>
