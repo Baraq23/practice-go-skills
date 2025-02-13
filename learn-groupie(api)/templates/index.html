@@ -13,7 +13,7 @@
     <h2>Artists</h2>
     <div class="artists-body artist-list" >
     {{ range . }}
-        <div id="artist-item">
+        <div class="artist-item">
             <a href="/artist?id={{ .Id }}">
                 <div class="artists-card">
                     <h3>{{ .Name }}</h3>
@@ -24,6 +24,7 @@
                 </div>
             </a>
         </div>
+        
     {{ end }}
     </div>
    
