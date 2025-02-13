@@ -20,6 +20,22 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func ErrorHandler(w http.ResponseWriter, r *http.Request, statusCode uint, message string) {
+	data := struct {
+		Status uint
+		Message string
+	} {
+		Status: statusCode,
+		Message: message,
+	}
+	err := Tmpl.ExecuteTemplate(w, "error-page.html", data)
+	if err != nil {
+		log.Println("error parsing error-page.html:", err)
+		return
+	}
+	return
+}
+
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	strId := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(strId)
@@ -27,6 +43,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil || id > len(datastructures.Artists) || id < 0 {
 		log.Printf("Error %d: Not found.\n", http.StatusNotFound)
 		http.Error(w, "Page not found", http.StatusNotFound)
+		ErrorHandler(w, r, http.StatusNotFound, "Page Not Found")
 		return
 	}
 
@@ -58,6 +75,7 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	err = Tmpl.ExecuteTemplate(w, "artist.html", data)
 	if err != nil {
 		log.Println("Error passing artist.html templates:", err)
+		ErrorHandler(w, r, http.StatusNotFound,"Page not found")
 		http.Error(w, "Page not found", http.StatusNotFound)
 		return
 	}
