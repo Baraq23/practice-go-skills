@@ -1,0 +1,29 @@
+/* CSS CODE GOES HERE */
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.parent-div {
+    min-height: 290px;
+    margin: auto 10px;
+    border: rgb(31, 21, 3) 2px solid;
+    display: flex;
+    flex-direction: flex-start;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.prop {
+    background: blueviolet;
+    height: 80px;
+    width: 80px;
+    color: aliceblue;
+    font-size: larger;
+}
