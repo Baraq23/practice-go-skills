@@ -1,7 +1,19 @@
 /* css code goes here */
+:root {
+    --theme-color: aliceblue;
+    --theme-secondary: rgb(12, 130, 233);
+    --theme-text-color: aliceblue;
+    --border-color: grey;
+    --boder-width: 2px;
+}
 * {
     margin: 0;
     box-sizing: border-box;
+}
+body {
+    margin-top: 0;
+    height: 90vh;
+    background-color:darkgray;
 }
 
 .header {
@@ -10,12 +22,12 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    color: aliceblue;
+    color: var(--theme-text-color);
 }
 
 
 nav {
-    width: 80%;
+    width: 80vw;
     margin: 10px auto;
     display: flex;
     justify-content: space-between;
@@ -39,7 +51,8 @@ nav {
     width: 80%;
     margin: 10px auto;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
+    justify-items: center;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
@@ -55,7 +68,7 @@ nav {
     display: inline-block;
     min-height: 20vh;
     min-width: 20vw;
-    border: #3106f3 solid 1px;
+    border: var(--border-color) solid var(--boder-width);
     text-align: center;
     
 }
@@ -63,16 +76,36 @@ nav {
 
 /*  ERROR PAGE STYLING */
 .error-body {
-    width: 100;
+    text-align: center;
+    background-color: #3106f3 2px solid;
+    width: 300px;
     height: auto;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 }
-.error-card {
-    display: inline-block;
+
+.error-body div {
+    margin: 20px auto;
+}
+
+#back-button {
+    margin: 5px;
+    padding: 2px 5px;
+    min-width: 80px;
+    background-color: aquamarine;
+    border: #13010100 2px solid;
+    border-radius: 5px;
+}
+ .error-card { 
+    /* display: inline-block;
     width: 30vw;
     height: 30vh;
-    margin: 20px auto;
+    margin: 20px auto; */
     padding: 5px;
-    border: #01fa3f solid 2px;
+    border: var(--border-color) solid var(--boder-width);
     border-radius: 5px;
 
 }
@@ -81,7 +114,7 @@ nav {
 
 .footer {
     text-align: center;
-    color:aliceblue;
+    color:var(--theme-text-color);
     height: 5vh;
     background-color: darkolivegreen;
     position: fixed;
