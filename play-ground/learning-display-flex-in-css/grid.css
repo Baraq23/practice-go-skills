@@ -1,0 +1,19 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.grid-body {
+    border: rgb(255, 0, 0) 2px solid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 5px;
+    justify-content: center;
+}
+
+.tile {
+    border: darkblue 1px solid;
+}
+
+
