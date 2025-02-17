@@ -1,62 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="../static/artist.css">
+    <link rel="stylesheet" href="../static/style.css">
     <title>{{ .Artist.Name }}</title>
 </head>
+
 <body>
     <div class="header">
         {{ template "HeaderTemplate" }}
     </div>
-    <h2>{{ .Artist.Name }}</h2>
-    <div class="main-div">
-        <img src="{{ .Artist.ImageLink }}" alt="{{ .Artist.Name }}">
-        <div>
-            <h4>First-Album</h4>
-            <p>{{ .Artist.FirstAlbum }}</p>
+    <div class="container">
+        <div class="main-div">
+            <div>
+                <h2>{{ .Artist.Name }}</h2>
+                <img src="{{ .Artist.ImageLink }}" alt="{{ .Artist.Name }}">
+                <br>
+                <h4>First-Album</h4>
+                <p>{{ .Artist.FirstAlbum }}</p>
+                <br>
+                <h4>Creation Date:</h4>
+                <p>{{ .Artist.CreationDate }}</p>
+            </div>            
+            <div>
+                <h4>Members</h4>
+                <ol>
+                    {{ range .Artist.Members}}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ol>
+            </div>
+            <div class="dates-card">
+                <ul>
+                    {{ range .DatesInfo }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            <div class="locations-card">
+                <ul>
+                    {{ range .LocationsInfo }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
         </div>
-        <div>
-            <h4>Creation Date:</h4>
-            <p>{{ .Artist.CreationDate }}</p>
-        </div>
-        <div>
-            <h4>Members</h4>
-            <ol>
-                {{ range .Artist.Members}}
-                <li>{{ . }}</li>
-                {{ end }}
-            </ol>
-        </div>
-        <div class="card-buttons">
-            <button>Dates</button>
-            <button>Locations</button>
-        </div>
-        <div class="dates-card">
-            <ul>
-                {{ range .DatesInfo }}
-                <li>{{ . }}</li>
-                {{ end }}
-            </ul>
-        </div>
-        <div class="locations-card">
-            <ul>
-                {{ range .LocationsInfo }}
-                <li>{{ . }}</li>
-                {{ end }}
-            </ul>
-        </div>
+
+        <button class="back" id="back-button">Back</button>
     </div>
 
-
-
-    <button class="back" id="back-button">Back</button>
-
-
-    
     <script type="module" src="../static/app.js"></script>
+
 </body>
 {{template "footerhtml"}}
 </html>
