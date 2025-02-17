@@ -1,10 +1,10 @@
 package main
 
 import (
-	// "fmt"
-
 	"log"
 	"net/http"
+	// "fmt"
+
 	"groupie/datastructures"
 	"groupie/handlers"
 	// "golang.org/x/tools/cmd/getgo/server"
@@ -24,6 +24,9 @@ func main() {
 
 	http.HandleFunc("/", handlers.HomeHandler)
 	http.HandleFunc("/artist", handlers.ArtistHandler)
+	http.HandleFunc("/static", func(w http.ResponseWriter, r *http.Request) {
+		handlers.ErrorHandler(w, r, http.StatusForbidden, "Access forbidden.")
+	})
 
 	log.Println("Server running on http://localhost" + port)
 	err = http.ListenAndServe(port, nil)
