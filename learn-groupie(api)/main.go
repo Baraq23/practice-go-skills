@@ -25,7 +25,7 @@ func main() {
 	http.HandleFunc("/", handlers.HomeHandler)
 	http.HandleFunc("/artist", handlers.ArtistHandler)
 	http.HandleFunc("/static", func(w http.ResponseWriter, r *http.Request) {
-		handlers.ErrorHandler(w, r, http.StatusForbidden, "Access forbidden.")
+		handlers.ErrorHandler(w, http.StatusForbidden, "Access forbidden.")
 	})
 
 	log.Println("Server running on http://localhost" + port)
