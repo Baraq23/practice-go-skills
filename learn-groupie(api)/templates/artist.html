@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="../static/artist-page.css">
     <title>{{ .Artist.Name }}</title>
 </head>
 
@@ -34,6 +34,7 @@
                 </ol>
             </div>
             <div class="dates-card">
+                <h4>Dates</h4>
                 <ul>
                     {{ range .DatesInfo }}
                     <li>{{ . }}</li>
@@ -41,6 +42,7 @@
                 </ul>
             </div>
             <div class="locations-card">
+                <h4>Locations</h4>
                 <ul>
                     {{ range .LocationsInfo }}
                     <li>{{ . }}</li>
