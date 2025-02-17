@@ -1,33 +1,35 @@
-/* css code goes here */
+/* Root Variables */
 :root {
     --theme-color: aliceblue;
     --theme-secondary: rgb(12, 130, 233);
     --theme-text-color: aliceblue;
-    --border-color: grey;
+    --border-color: rgb(233, 23, 23);
     --s-border-color: blue;
-    --boder-width: 2px;
-    --Pg-clor: grey;
-}
-* {
-    margin: 0;
-    box-sizing: border-box;
-}
-body {
-    margin-top: 0;
-    height: 90vh;
-    background-color:darkgray;
+    --border-width: 2px;
+    --page-color: grey;
 }
 
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: var(--page-color);
+    height: 100vh;
+}
+
+/* Header */
 .header {
     height: 45vh;
-    background-image: url("../static/concert-background-dd0syeox7rmi78l0.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: url("../static/concert-background-dd0syeox7rmi78l0.jpg") center / cover no-repeat;
     color: var(--theme-text-color);
 }
 
-
+/* Navigation */
 nav {
     width: 80vw;
     margin: 10px auto;
@@ -36,32 +38,44 @@ nav {
     align-items: center;
 }
 
-.header ul li {
-    display: inline-block;
+nav ul {
+    display: flex;
+    gap: 15px;
 }
 
+nav ul li {
+    list-style: none;
+}
+
+/* Image */
 .img img {
     height: 200px;
     width: auto;
 }
 
+/* Main Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+}
 
-
-/* ARTIST STYLING */
-
+/* Artist Section */
 .artists-body {
     width: 90vw;
     margin: 10px auto;
-   border: red 3px solid;
-   display: grid;
-   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-   justify-content: center;
-   gap: 3px 3px ;
-   align-items: stretch;
+    border: var(--border-color) var(--border-width) solid;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    align-items: stretch;
 }
 
+/* Artist Card */
 .artist-item {
-    border: rgb(0, 0, 255) 3px solid;
+    border: var(--s-border-color) var(--border-width) solid;
 }
 
 .artists-card {
@@ -69,56 +83,70 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /* min-height: 250px; */
-    /* max-width: inherit; */
     border: #2ef306 solid 1px;
     text-align: center;
     padding: 10px;
+    min-height: 250px;
 }
 
-
-
-/*  ERROR PAGE STYLING */
+/* Error Page */
 .error-body {
     text-align: center;
-    background-color: #3106f3 2px solid;
     width: 300px;
-    height: auto;
     margin: 20px auto;
+    padding: 10px;
+    background-color: var(--theme-secondary);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
-}
-
-.error-body div {
-    margin: 20px auto;
+    border: var(--border-color) solid var(--border-width);
+    border-radius: 5px;
 }
 
 #back-button {
     margin: 5px;
-    padding: 2px 5px;
+    padding: 5px 10px;
     min-width: 80px;
     background-color: rgb(6, 253, 171);
-    border: #13010100 2px solid;
+    border: var(--s-border-color) var(--border-width) solid;
     border-radius: 5px;
-}
- .error-card { 
-    padding: 5px;
-    border: var(--border-color) solid var(--boder-width);
-    border-radius: 5px;
-
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.1s;
 }
 
-/*  FOOTER STYLING  */
+#back-button:hover {
+    background-color: var(--theme-secondary);
+    transform: scale(1.05);
+}
 
+/* Footer */
 .footer {
     text-align: center;
-    color:var(--theme-text-color);
+    color: var(--theme-text-color);
     height: 5vh;
     background-color: darkolivegreen;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .artists-body {
+        grid-template-columns: 1fr; /* Stack items */
+    }
+
+    .artists-card {
+        min-height: auto;
+    }
+
+    nav {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .container {
+        width: 95%;
+    }
 }
