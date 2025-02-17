@@ -7,6 +7,7 @@
     --s-border-color: blue;
     --border-width: 2px;
     --page-color: grey;
+    --card-bg: #f9f9f954
 }
 
 /* Global Styles */
@@ -32,10 +33,19 @@ nav a {
     color: rgb(0, 38, 255);
 }
 /* Header */
+/* .header {
+    height: 45vh;
+    
+    color: var(--theme-text-color);
+} */
+
 .header {
     height: 45vh;
     background: url("../static/concert-background-dd0syeox7rmi78l0.jpg") center / cover no-repeat;
     color: var(--theme-text-color);
+    display: flex;
+    justify-content: center;
+    
 }
 
 /* Navigation */
@@ -63,12 +73,14 @@ nav ul li {
 }
 
 /* Main Container */
-.container {
+.container, .artists-body {
     width: 90%;
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-    text-align: center;
+    background: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
 }
 
 /* Artist Section */
@@ -96,35 +108,59 @@ nav ul li {
     text-align: center;
     padding: 10px;
     height: 100%;
+    background-color: var(card-bg);
 }
 
 /* Error Page */
 .error-body {
     text-align: center;
-    width: 300px;
+    width: 450px;
     margin: 20px auto;
     padding: 10px;
-    background-color: var(--theme-secondary);
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: var(--border-color) solid var(--border-width);
+    /* border: var(--border-color) solid var(--border-width); */
     border-radius: 5px;
 }
 
+.error-card {
+    padding: 20px;
+    /* border: var(--border-color) solid var(--border-width); */
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.error-card h1 {
+    color: var(--theme-secondary);
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.error-card p {
+    font-size: 16px;
+    color: darkslategray;
+}
+
+/* Back Button */
 #back-button {
-    margin: 5px;
-    padding: 5px 10px;
-    min-width: 80px;
-    background-color: rgb(6, 253, 171);
-    border: var(--s-border-color) var(--border-width) solid;
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: var(--theme-secondary);
+    border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out, transform 0.1s;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 #back-button:hover {
-    background-color: var(--theme-secondary);
+    /* background: #01fa3f; */
     transform: scale(1.05);
 }
 
