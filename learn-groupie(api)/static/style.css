@@ -22,6 +22,15 @@ body {
     height: 100vh;
 }
 
+nav a {
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.artist-item a {
+    text-decoration: none;
+    color: rgb(0, 38, 255);
+}
 /* Header */
 .header {
     height: 45vh;
@@ -86,7 +95,7 @@ nav ul li {
     border: #2ef306 solid 1px;
     text-align: center;
     padding: 10px;
-    min-height: 250px;
+    height: 100%;
 }
 
 /* Error Page */
@@ -132,7 +141,7 @@ nav ul li {
 }
 
 /* Responsive Adjustments */
-@media (max-width: 768px) {
+@media (max-width: 680px) {
     .artists-body {
         grid-template-columns: 1fr; /* Stack items */
     }
