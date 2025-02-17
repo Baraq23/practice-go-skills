@@ -46,8 +46,7 @@ func ErrorHandler(w http.ResponseWriter, statusCode uint, message string) {
 func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	strId := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(strId)
-
-	if err != nil || id > len(datastructures.Artists) || id < 0 {
+	if err != nil || id > len(datastructures.Artists) || id <= 0 {
 		log.Printf("Error %d: Not found.\n", http.StatusNotFound)
 		ErrorHandler(w, http.StatusNotFound, fmt.Sprintf("Artist of Id: %s Does Not Exist.", strId))
 		return
@@ -63,11 +62,11 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	var ArtistDates []string
 	var ArtistLocations []string
 
-	for _, art := range datastructures.Artists {
+	for i, art := range datastructures.Artists {
 		if art.Id == id {
 			ThisArtist = art
-			ArtistDates = datastructures.Dates.Index[id].Dates
-			ArtistLocations = datastructures.Locations.Index[id].Locations
+			ArtistDates = datastructures.Dates.Index[i].Dates
+			ArtistLocations = datastructures.Locations.Index[i].Locations
 			break
 		}
 	}
