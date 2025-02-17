@@ -13,12 +13,11 @@ import (
 var Tmpl = template.Must(template.ParseGlob("templates/*.html"))
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
-		// if r.URL.Path != "/" {
-	// 	ErrorHandler(w, r, http.StatusNotFound, "Page Not Found.")
-	// 	return
-	// }
+	if r.URL.Path != "/" {
+		ErrorHandler(w, http.StatusNotFound, "Page Not Found.")
+		return
+	}
 	err := Tmpl.ExecuteTemplate(w, "index.html", datastructures.Artists)
-
 	if err != nil {
 		log.Println("error parsing index.html templates:", err)
 		// w.WriteHeader(http.StatusInternalServerError)
@@ -30,10 +29,10 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 func ErrorHandler(w http.ResponseWriter, statusCode uint, message string) {
 	w.WriteHeader(int(statusCode))
 	data := struct {
-		Status uint
+		Status  uint
 		Message string
-	} {
-		Status: statusCode,
+	}{
+		Status:  statusCode,
 		Message: message,
 	}
 	err := Tmpl.ExecuteTemplate(w, "error-page.html", data)
@@ -55,8 +54,8 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	type ArtistInfo struct {
-		Artist datastructures.ARTISTS
-		DatesInfo []string
+		Artist        datastructures.ARTISTS
+		DatesInfo     []string
 		LocationsInfo []string
 	}
 
@@ -74,8 +73,8 @@ func ArtistHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	data := ArtistInfo{
-		Artist: ThisArtist,
-		DatesInfo: ArtistDates,
+		Artist:        ThisArtist,
+		DatesInfo:     ArtistDates,
 		LocationsInfo: ArtistLocations,
 	}
 
