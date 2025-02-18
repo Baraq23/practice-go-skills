@@ -13,11 +13,10 @@ var (
 )
 
 var (
-	Artists []ARTISTS
+	Artists   []ARTISTS
 	Locations LOCATIONS
-	Dates DATES
+	Dates     DATES
 	Relations RELATION
-
 )
 
 var err error
@@ -25,25 +24,25 @@ var err error
 func Fetch() error {
 	Artists, err = FetchArtists(ArtistsAPI)
 	if err != nil {
-		
+
 		return err
 	}
 
 	Locations, err = FetchLocations(LocationsAPI)
 	if err != nil {
-		
+
 		return err
 	}
 
 	Dates, err = FetchDates(DatesAPI)
 	if err != nil {
-		
+
 		return err
 	}
 
 	Relations, err = FetchRelations(RelationAPI)
 	if err != nil {
-		
+
 		return err
 	}
 	return nil
@@ -100,11 +99,10 @@ func FetchRelations(api string) (RELATION, error) {
 	}
 	defer resp.Body.Close()
 
-	relationsSlice:= RELATION{}
+	relationsSlice := RELATION{}
 	decode := json.NewDecoder(resp.Body)
 	if err = decode.Decode(&relationsSlice); err != nil {
 		return RELATION{}, err
 	}
 	return relationsSlice, nil
 }
-
