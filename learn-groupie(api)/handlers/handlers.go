@@ -5,12 +5,24 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"path/filepath"
+	"runtime"
 	"strconv"
 
 	"groupie/datastructures"
 )
 
-var Tmpl = template.Must(template.ParseGlob("templates/*.html"))
+var Tmpl *template.Template
+
+func init() {
+	_, filename, _, _ := runtime.Caller(0)
+	fmt.Println(filename)
+	currentDir := filepath.Dir(filename)
+	templatesDir := filepath.Join(currentDir, "../templates")
+	fmt.Println("Templates directory:", templatesDir) // Debug
+	Tmpl = template.Must(template.ParseGlob(filepath.Join(templatesDir, "*.html")))
+}
+
 
 func HomeHandler(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
