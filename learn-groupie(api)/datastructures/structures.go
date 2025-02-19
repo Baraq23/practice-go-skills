@@ -14,32 +14,32 @@ type ARTISTS struct {
 }
 
 // Locations API
-type locationsStructItem struct {
+type LocationsStructItem struct {
 	Id        int      `json:"id"`
 	Locations []string `json:"locations"`
 	DatesLink string   `json:"dates"`
 }
 
 type LOCATIONS struct {
-	Index []locationsStructItem `json:"index"`
+	Index []LocationsStructItem `json:"index"`
 }
 
 // Dates API
-type datesStructItem struct {
+type DatesStructItem struct {
 	Id    int      `json:"id"`
 	Dates []string `json:"dates"`
 }
 
 type DATES struct {
-	Index []datesStructItem `json:"index"`
+	Index []DatesStructItem `json:"index"`
 }
 
 // Relations API
-type relationsStructItem struct {
+type RelationsStructItem struct {
 	Id             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
 
 type RELATION struct {
-	Index []relationsStructItem `json:"index"`
+	Index []RelationsStructItem `json:"index"`
 }
