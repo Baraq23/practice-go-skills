@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -15,8 +14,9 @@ var Tmpl *template.Template
 //templates are served correctly everytime
 func init() {
 	_,filename,_,_ := runtime.Caller(0)
-	fmt.Println(filename)
+	// fmt.Println("current file  directory:", filename)
 	currentDir := filepath.Dir(filename)
+	// fmt.Println("current directory:", currentDir)
 	templatesDir := filepath.Join(currentDir, "../templates")
 	Tmpl = template.Must(template.ParseGlob(filepath.Join(templatesDir, "*.html")))
 }
