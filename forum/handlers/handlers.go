@@ -26,17 +26,27 @@ func HomeHandler(w http.ResponseWriter, r *http.Request) {
 
 	if r.URL.Path != "/" {
 		ErrorHandler(w, int(http.StatusNotFound), "Sorry we could not find the page you were looking.")
+		return
+	}
+	err := Tmpl.ExecuteTemplate(w, "home.html",nil)
+	
+	if err != nil {
+		log.Println("Error parsing home.html template.")
+		ErrorHandler(w, int(http.StatusInternalServerError), "Server side error. Try again in a few momments")
+		return
 	}
 	
 }
 
 //handling errors
-func ErrorHandler(w http.ResponseWriter, statusCode int, MessageStr string) {
+func ErrorHandler(w http.ResponseWriter, statusCode int, messageStr string) {
 	w.WriteHeader(statusCode)
 	data := struct {
+		StatusCode int
 		Message string
 	}{
-		Message: MessageStr,
+		StatusCode: statusCode,
+		Message: messageStr,
 	}
 	err := Tmpl.ExecuteTemplate(w, "error-page.html", data)
 	if err != nil {
