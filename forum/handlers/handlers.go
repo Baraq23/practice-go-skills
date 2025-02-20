@@ -50,7 +50,7 @@ func ErrorHandler(w http.ResponseWriter, statusCode int, messageStr string) {
 	}
 	err := Tmpl.ExecuteTemplate(w, "error-page.html", data)
 	if err != nil {
-		log.Println("Error Parsing Error-page.html")
+		log.Println("Error Parsing error-page.html")
 		return
 	}
 }
