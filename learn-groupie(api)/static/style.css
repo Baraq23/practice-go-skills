@@ -146,7 +146,7 @@ nav ul li {
 }
 
 /* Back Button */
-#back-button {
+#back-button, .btn {
     width: 150px;
     padding: 10px;
     font-size: 16px;
@@ -157,6 +157,21 @@ nav ul li {
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.search-bar form {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.search-bar form input {
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+.search-bar form input {
+    width: 60%;
 }
 
 #back-button:hover {

@@ -10,7 +10,13 @@
     <div class="header">
         {{ template "HeaderTemplate" }}
     </div>
-    <div class="container">
+    <div class="container search-bar">
+        <form action="">
+            <input type="text" name="search-bar" placeholder="type artist name...">
+            <button type="submit" class="btn">search</button>
+        </form>
+    </div>
+    <div class="container heading">
         <h2>Artists</h2>
     </div>
     <div class="artists-body artist-list" >
